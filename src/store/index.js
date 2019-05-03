@@ -1,12 +1,7 @@
 import { createStore } from 'redux';
-import { createTodo } from '../actions';
+import middleware from './middleware';
 import appReducer from '../reducers';
 
-const store = createStore(
-  appReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-store.dispatch(createTodo());
+const store = createStore(appReducer, {}, middleware);
 
 export default store;

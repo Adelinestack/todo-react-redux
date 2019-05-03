@@ -1,14 +1,20 @@
-import { CREATE_TODO, SET_CHECKED_STATE } from './actionTypes';
+import {
+  CREATE_TODO_REQUEST,
+  CREATE_TODO_SUCCESS,
+  CREATE_TODO_FAILURE,
+  SET_CHECKED_STATE,
+  FETCH_TODO_REQUEST,
+  FETCH_TODO_SUCCESS,
+  FETCH_TODO_FAILURE,
+} from './actionTypes';
+import { postTodolist, fetchTodolistService } from '../services/todoApi';
+import { thunkCreator } from '../utils/thunkCreator';
 
-export const createTodo = () => {
-  return {
-    type: CREATE_TODO,
-    payload: {
-      1: { id: 1, name: 'Acheter carottes', isChecked: false },
-      2: { id: 2, name: 'Laver le linge', isChecked: false },
-      3: { id: 3, name: 'Cuire pizza', isChecked: false },
-    },
-  };
+export const createTodo = item => {
+  return thunkCreator({
+    types: [CREATE_TODO_REQUEST, CREATE_TODO_SUCCESS, CREATE_TODO_FAILURE],
+    promise: postTodolist(item),
+  });
 };
 
 export const setCheckedState = (id, name, isChecked) => {
@@ -17,3 +23,9 @@ export const setCheckedState = (id, name, isChecked) => {
     payload: { id, name, isChecked },
   };
 };
+
+export const fetchTodolist = () =>
+  thunkCreator({
+    types: [FETCH_TODO_REQUEST, FETCH_TODO_SUCCESS, FETCH_TODO_FAILURE],
+    promise: fetchTodolistService(),
+  });

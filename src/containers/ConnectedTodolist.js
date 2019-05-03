@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Todolist from '../components/Todolist';
-import { createTodo, setCheckedState } from '../actions';
+import { createTodo, setCheckedState, fetchTodolist } from '../actions';
 
 const mapStateToProps = state => {
   if (state.filter === 'all') {
@@ -16,7 +16,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  createTodo: () => dispatch(createTodo()),
+  createTodo: item => dispatch(createTodo(item)),
+  fetchTodolist: () => dispatch(fetchTodolist()),
   setCheckedState: (id, name, isChecked) =>
     dispatch(setCheckedState(id, name, isChecked)),
 });
